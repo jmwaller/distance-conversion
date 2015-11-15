@@ -2,24 +2,9 @@ package main
 
 import (
 	"fmt"
-	"math"
+
+	"github.com/mymath"
 )
-
-// Round -- Returns value rounded to nearest whole number.
-func Round(f float64) float64 {
-	return math.Floor(f + 0.5)
-}
-
-// RoundPlus -- Returns value rounded to nearest places significant digits.
-func RoundPlus(f float64, places int) float64 {
-	shift := math.Pow(10, float64(places))
-	return Round(f*shift) / shift
-}
-
-// RoundInPlace -- Replaces value with rounded whole number value.
-func RoundInPlace(fPtr *float64) {
-	*fPtr = math.Floor(*fPtr + 0.5)
-}
 
 func main() {
 	const MilesToKilometers = 1.60934
@@ -36,7 +21,7 @@ func main() {
 	} else {
 		fmt.Println("Computing miles from kilos:  RoundPlus((", kilos, "*", KilometersToMiles, "),2)")
 		fmt.Println("Storing result in memory at", &miles, "identified by the variable miles")
-		miles := RoundPlus((kilos * KilometersToMiles), 2)
+		miles := mymath.RoundPlus((kilos * KilometersToMiles), 2)
 
 		fmt.Println(kilos, "km is", miles, "miles!")
 	}
@@ -51,7 +36,7 @@ func main() {
 	} else {
 		fmt.Println("Computing kilos from miles:  RoundPlus((", miles, "*", MilesToKilometers, "),2)")
 		fmt.Println("Over-writing the kilos variable in memory at", &kilos)
-		kilos = RoundPlus((miles * MilesToKilometers), 2)
+		kilos = mymath.RoundPlus((miles * MilesToKilometers), 2)
 
 		fmt.Println(miles, "miles is", kilos, "kilometers!")
 	}
@@ -61,7 +46,7 @@ func main() {
 	fmt.Println("The value of the miles variable is", miles)
 	fmt.Println("Rounding miles value in place:  RoundInPlace(", &miles, ")")
 
-	RoundInPlace(&miles)
+	mymath.RoundInPlace(&miles)
 
 	fmt.Println("The value of the miles variable is", miles)
 	fmt.Println("The memory address of the miles variable is", &miles)
